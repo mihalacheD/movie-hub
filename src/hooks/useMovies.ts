@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 export interface Movie {
   id: number,
   title: string,
-  poster_path: string
+  poster_path: string,
+  vote_average: number
 }
 
 interface FetchMoviesResponse {
@@ -30,6 +31,7 @@ const useMovies = () => {
                 id: movie.id,
                 title: movie.title,
                 poster_path: movie.poster_path,
+                vote_average: movie.vote_average
               }));
               setMovies(filteredMovies);
              })
