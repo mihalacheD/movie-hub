@@ -2,9 +2,10 @@ import options from "@/services/api-client";
 import axios, { CanceledError } from "axios";
 import { useState, useEffect } from "react";
 
-interface Movie {
+export interface Movie {
   id: number,
-  title: string
+  title: string,
+  poster_path: string
 }
 
 interface FetchMoviesResponse {
@@ -27,7 +28,8 @@ const useMovies = () => {
              .then((res) => {
               const filteredMovies = res.data.results.map((movie) => ({
                 id: movie.id,
-                title: movie.title
+                title: movie.title,
+                poster_path: movie.poster_path,
               }));
               setMovies(filteredMovies);
              })
