@@ -7,7 +7,7 @@ import {
 
 const MovieCardSkeleton = () => {
   return (
-    <Card.Root borderRadius={10} overflow='hidden' width='350px'>
+    <Card.Root borderRadius={10} overflow='hidden' >
       <Skeleton height='500px'/>
       <Card.Body>
         <SkeletonText/>
