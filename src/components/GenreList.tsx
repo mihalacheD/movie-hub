@@ -4,7 +4,7 @@ import {
 } from "react-icons/fa";
 import { IconType } from "react-icons";
 import useGenres from "@/hooks/useGenres"
-import { Box, HStack, List, ListItem, Text } from "@chakra-ui/react";
+import { Box, HStack, List, ListItem, Spinner, Text } from "@chakra-ui/react";
 
 const genreIcons: Record<number, IconType> = {
   28: FaFilm,           // Action 🎬
@@ -29,7 +29,10 @@ const genreIcons: Record<number, IconType> = {
 };
 
 const GenreList = ()  => {
-  const { genres } = useGenres();
+  const { genres, isLoading, error } = useGenres();
+
+   if (error) return null;
+   if (isLoading) return <Spinner/>
 
   return (
     <List.Root gap={3}>
