@@ -27,8 +27,8 @@ const useMovies = () => {
 
     setLoading(true);
 
-    axios.get<FetchMoviesResponse>(options.url,
-      {headers: options.headers, params :options.params, signal :controller.signal})
+    axios.get<FetchMoviesResponse>(`${options.url}/discover/movie`,
+      {...options, signal :controller.signal})
              .then((res) => {
               const filteredMovies = res.data.results.map((movie) => ({
                 id: movie.id,

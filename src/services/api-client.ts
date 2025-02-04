@@ -1,8 +1,20 @@
-const API_KEY = import.meta.env.VITE_API_KEY;
+
 const BEARER_TOKEN = import.meta.env.VITE_BEARER_TOKEN;
 
-
 const options = {
+  method: 'GET',
+  url: `https://api.themoviedb.org/3`,
+  params: {language: 'en'},
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${BEARER_TOKEN}`
+
+  }
+};
+
+export default options;
+
+/*const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`,
     params: {
@@ -16,6 +28,5 @@ const options = {
       accept: 'application/json',
       Authorization: `Bearer ${BEARER_TOKEN}`
     }
-  };
+  };*/
 
-  export default options;
