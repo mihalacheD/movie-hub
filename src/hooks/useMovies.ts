@@ -1,6 +1,7 @@
 import options from "@/services/api-client";
 import axios, { CanceledError } from "axios";
 import { useState, useEffect } from "react";
+import { Genre } from "./useGenres";
 
 export interface Movie {
   id: number,
@@ -14,7 +15,7 @@ interface FetchMoviesResponse {
   results: Movie[]
 }
 
-const useMovies = () => {
+const useMovies = ( selectedGenre: Genre | null) => {
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState('');
@@ -27,8 +28,14 @@ const useMovies = () => {
 
     setLoading(true);
 
-    axios.get<FetchMoviesResponse>(`${options.url}/discover/movie`,
-      {...options, signal :controller.signal})
+    axios.get<FetchMoviesResponse>(`${options.url}/discover/movie`, {
+      ...options,
+      params: {
+        ...options.params,
+        with_genres: selectedGenre ? selectedGenre.id : "", // Filtrare după gen
+      },
+      signal: controller.signal,
+    })
              .then((res) => {
               const filteredMovies = res.data.results.map((movie) => ({
                 id: movie.id,
@@ -46,7 +53,7 @@ const useMovies = () => {
              })
 
              return () => controller.abort()
-  }, []);
+  }, [selectedGenre]);  // 🔥 Re-fetch când se schimbă genul
   return { movies, error, isLoading}
 }
 
