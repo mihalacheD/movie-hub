@@ -29,10 +29,11 @@ const genreIcons: Record<number, IconType> = {
 };
 
 interface Props {
+  selectedGenre: Genre | null;
   onSelectGenre: (genre: Genre) => void;
 }
 
-const GenreList = ({ onSelectGenre}: Props)  => {
+const GenreList = ({ selectedGenre, onSelectGenre}: Props)  => {
   const { genres, isLoading, error } = useGenres();
 
    if (error) return null;
@@ -50,7 +51,8 @@ const GenreList = ({ onSelectGenre}: Props)  => {
                 <IconComponent size={24} />
               </Box>
               <Button
-                 fontSize="lg"
+                 fontSize='lg'
+                 fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'}
                  variant='ghost'
                  onClick={() => onSelectGenre(genre)}
                  >{genre.name}</Button>
