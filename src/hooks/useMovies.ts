@@ -15,7 +15,7 @@ interface FetchMoviesResponse {
   results: Movie[]
 }
 
-const useMovies = ( selectedGenre: Genre | null) => {
+const useMovies = (selectedGenre: Genre | null, sortOption: string) => {
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState('');
@@ -32,7 +32,8 @@ const useMovies = ( selectedGenre: Genre | null) => {
       ...options,
       params: {
         ...options.params,
-        with_genres: selectedGenre ? selectedGenre.id : "", // Filtrare după gen
+        with_genres: selectedGenre ? selectedGenre.id : "",
+        sort_by: sortOption,
       },
       signal: controller.signal,
     })
@@ -53,7 +54,7 @@ const useMovies = ( selectedGenre: Genre | null) => {
              })
 
              return () => controller.abort()
-  }, [selectedGenre]);  // 🔥 Re-fetch când se schimbă genul
+  }, [selectedGenre, sortOption]);  // 🔥 Re-fetch când se schimbă sortarea sau genul
   return { movies, error, isLoading}
 }
 

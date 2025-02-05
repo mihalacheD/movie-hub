@@ -4,10 +4,12 @@ import MovieGrid from "./components/MovieGrid"
 import GenreList from "./components/GenreList"
 import { useState } from "react"
 import { Genre } from "./hooks/useGenres"
+import SortSelector from "./components/SortSelector"
 
 function App() {
 
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [sortOption, setSortOption] = useState("popularity.desc")
 
   return(
       <>
@@ -17,7 +19,7 @@ function App() {
   }}
       templateColumns={{
     base: '1fr',
-    lg: '200px 1fr'
+    lg: '230px 1fr'
   }}
   >
     <GridItem area='nav'>
@@ -26,8 +28,9 @@ function App() {
     <GridItem area='aside'paddingX={5} display={{ base: "none", lg: "block" }}>
       <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
     </GridItem>
-    <GridItem area='main'>
-      <MovieGrid selectedGenre={selectedGenre}/>
+    <GridItem area='main' padding='10px' spaceY={5} >
+      <SortSelector onSelectOptions={(option) => setSortOption(option)} value={sortOption}/>
+      <MovieGrid selectedGenre={selectedGenre} sortOption={sortOption}/>
     </GridItem>
   </Grid>
   </>
