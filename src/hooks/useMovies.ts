@@ -15,7 +15,7 @@ interface FetchMoviesResponse {
   results: Movie[]
 }
 
-const useMovies = (selectedGenre: Genre | null, sortOption: string) => {
+const useMovies = (selectedGenre: Genre | null, sortOption: string, searchText: string) => {
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState('');
@@ -28,12 +28,16 @@ const useMovies = (selectedGenre: Genre | null, sortOption: string) => {
 
     setLoading(true);
 
-    axios.get<FetchMoviesResponse>(`${options.url}/discover/movie`, {
+     // Dacă există un searchText, trebuie să facem un request diferit
+     const endpoint = searchText ? "/search/movie" : "/discover/movie";
+
+    axios.get<FetchMoviesResponse>(`${options.url}${endpoint}`, {
       ...options,
       params: {
         ...options.params,
         with_genres: selectedGenre ? selectedGenre.id : "",
-        sort_by: sortOption,
+        sort_by: searchText ? undefined : sortOption, // sort_by doar dacă nu căutăm`,
+        query: searchText || undefined,
       },
       signal: controller.signal,
     })
@@ -54,7 +58,7 @@ const useMovies = (selectedGenre: Genre | null, sortOption: string) => {
              })
 
              return () => controller.abort()
-  }, [selectedGenre, sortOption]);  // 🔥 Re-fetch când se schimbă sortarea sau genul
+  }, [selectedGenre, sortOption, searchText]);  // 🔥 Re-fetch când se schimbă sortarea sau genul
   return { movies, error, isLoading}
 }
 

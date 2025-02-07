@@ -9,7 +9,8 @@ import SortSelector from "./components/SortSelector"
 function App() {
 
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [sortOption, setSortOption] = useState("popularity.desc")
+  const [sortOption, setSortOption] = useState("popularity.desc");
+  const [searchText, setSearchText] = useState<string>("");
 
   return(
       <>
@@ -23,14 +24,14 @@ function App() {
   }}
   >
     <GridItem area='nav'>
-      <NavBar/>
+      <NavBar onSearch={(searchText) => setSearchText(searchText)}/>
     </GridItem>
     <GridItem area='aside'paddingX={5} display={{ base: "none", lg: "block" }}>
       <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
     </GridItem>
     <GridItem area='main' padding='10px' spaceY={5} >
       <SortSelector onSelectOptions={(option) => setSortOption(option)} value={sortOption}/>
-      <MovieGrid selectedGenre={selectedGenre} sortOption={sortOption}/>
+      <MovieGrid selectedGenre={selectedGenre} sortOption={sortOption} searchText={searchText} />
     </GridItem>
   </Grid>
   </>
