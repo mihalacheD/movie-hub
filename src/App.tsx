@@ -28,7 +28,9 @@ function App() {
       <NavBar onSearch={(searchText) => setSearchText(searchText)}/>
     </GridItem>
     <GridItem area='aside'paddingX={5} display={{ base: "none", lg: "block" }}>
-      <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
+      <GenreList
+       selectedGenre={selectedGenre}
+       onSelectGenre={(genre) => {setSelectedGenre(genre); setSearchText("")}} />
     </GridItem>
     <GridItem area='main' padding='10px' spaceY={5} >
       <MovieHeading selectedGenre={selectedGenre} />

@@ -35,7 +35,7 @@ const useMovies = (selectedGenre: Genre | null, sortOption: string, searchText: 
       ...options,
       params: {
         ...options.params,
-        with_genres: selectedGenre ? selectedGenre.id : "",
+        with_genres: searchText ? undefined : selectedGenre?.id, // 🔥 Genul doar dacă nu căutăm
         sort_by: searchText ? undefined : sortOption, // sort_by doar dacă nu căutăm`,
         query: searchText || undefined,
       },
