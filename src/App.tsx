@@ -5,6 +5,7 @@ import GenreList from "./components/GenreList"
 import { useState } from "react"
 import { Genre } from "./hooks/useGenres"
 import SortSelector from "./components/SortSelector"
+import MovieHeading from "./components/MovieHeading"
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
       <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}/>
     </GridItem>
     <GridItem area='main' padding='10px' spaceY={5} >
+      <MovieHeading selectedGenre={selectedGenre} />
       <SortSelector onSelectOptions={(option) => setSortOption(option)} value={sortOption}/>
       <MovieGrid selectedGenre={selectedGenre} sortOption={sortOption} searchText={searchText} />
     </GridItem>
