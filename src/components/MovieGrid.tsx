@@ -19,7 +19,7 @@ const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   return (
     <>
     {error && <p>{error}</p>}
-    <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 5}}  gap={4}>
+    <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4}}  gap={6}>
       {isLoading && skeletons.map(skeleton => <MovieCardSkeleton key={skeleton}/>)}
       {movies.map( movie => <MovieCard key={movie.id} movie={movie}/>)}
     </SimpleGrid>

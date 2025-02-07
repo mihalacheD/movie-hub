@@ -18,8 +18,8 @@ const MovieCard = ({ movie }: Props) => {
       (<Image src={noImg}></Image>)
       }
       <Card.Body>
-        <Heading fontSize='2xl' mb={2}>{movie.title}</Heading>
         <RenderStars rating={movie.vote_average}/>
+        <Heading fontSize='2xl' mt={2}>{movie.title}</Heading>
       </Card.Body>
     </Card.Root>
   )
